@@ -88,6 +88,21 @@ async function run() {
       const result = await toysCollection.find(query).toArray();
       res.send(result);
     });
+
+    
+    // get data by email
+    app.get("/toys/:email", async (req, res) => {
+      const email = req.params.email;
+      const num = parseInt(req.query.num);
+      // console.log(req.query.num);
+      const query = { sellerEmail: email };
+      const result = await toysCollection
+        .find(query)
+        .sort({ price: num })
+        .collation({ locale: "en_US", numericOrdering: true })
+        .toArray();
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
