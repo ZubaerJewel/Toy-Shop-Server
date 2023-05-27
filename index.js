@@ -73,6 +73,13 @@ async function run() {
         .toArray();
       res.send(result);
     });
+
+     // get limited data
+    app.get("/toys/limit/:limit", async (req, res) => {
+      const limit = parseInt(req.params.limit);
+      const result = await toysCollection.find().limit(limit).toArray();
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
