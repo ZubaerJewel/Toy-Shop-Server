@@ -112,6 +112,29 @@ async function run() {
       const result = await toysCollection.findOne(query);
       res.send(result);
     });
+
+    
+
+    // update data by id
+    app.put("/toys/toy/:id", async (req, res) => {
+      const id = req.params.id;
+      const newToys = req.body;
+      const query = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedToys = {
+        $set: {
+          ...newToys,
+        },
+      };
+
+      const result = await toysCollection.updateOne(
+        query,
+        updatedToys,
+        options
+      );
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
