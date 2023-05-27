@@ -113,7 +113,8 @@ async function run() {
       res.send(result);
     });
 
-    //delete data by id
+    //delete  section data by id
+    // it is completed code  for deleted data
     app.delete("/toys/toy/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
