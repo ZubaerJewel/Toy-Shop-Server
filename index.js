@@ -46,7 +46,7 @@ async function run() {
       res.send(result); 
     });
 
- 
+ //input code.txt line by line in below field 
 
     //delete  section data by id
     // it is completed code  for deleted data
@@ -64,6 +64,15 @@ async function run() {
       res.send(result);
     });
 
+       // get data by toy name
+    app.get("/toys/name", async (req, res) => {
+      const name = req.query.toyName;
+      // console.log(name);
+      const result = await toysCollection
+        .find({ toyName: { $regex: name, $options: "i" } })
+        .toArray();
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
